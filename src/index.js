@@ -1,31 +1,50 @@
-
 /**
- * Multiplexer
+ *
  **/
-class Multiplexer {
-  static from(bus) { return Promise.resolve(new Tca9548(bus)); }
+class TcaBus /* extends I2CBus */ {
+  constructor(bus, options) { this.bus = bus; }
+
+  read(cmd, length) {}
+  write(cmd, buffer) {}
+
+  readBuffer(length) {}
+  writeBuffer(buffer) {}
 }
 
+/**
+ * Tca9548
+ **/
 class Tca9548 {
-  constructor(bus) {
+  static from(bus, options) { return Promise.resolve(new Tca9548(bus, options)); }
+
+  constructor(bus, options) {
     this._bus = bus;
   }
 
-  select(channels) { return Common.select(this._bus, channels); }
-
-  selectedChannels() { return Common.selectedChannels(this._bus); }
+  init(options) {
+    return Promise.resolve(new TcaBus(this._bus, options));
+  }
 }
 
 class Common {
-  static select(bus, ...channels) {
-    console.log('channels', channels);
-    let chMask = 3;
-    return bus.writeBuffer(Buffer.from([chMask]));
+  static select(bus, channels) {
+    return bus.writeBuffer(Buffer.from([Converter.channelsToMask(channels)]));
   }
 
   static selectedChannels(bus) {
-    return bus.readBuffer(1);
+    return bus.readBuffer(1).then(mask => {
+      return Converter.maskToChannels(mask);
+    });
   }
 }
 
-module.exports = { Multiplexer };
+class Converter {
+  static channelsToMask(...channels) { return 3; }
+  static maskToChannels(mask) { throw Error('not yet'); }
+}
+
+class ChannelManager {
+
+}
+
+module.exports = { Tca9548 };
