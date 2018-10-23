@@ -32,19 +32,31 @@ class Tca9548 {
 
 class Common {
   static setChannels(bus, channels) {
-    return bus.writeBuffer(Buffer.from([Converter.channelsToMask(channels)]));
+    return bus.writeBuffer(Buffer.from([Converter.channelsToMask(...channels)]));
   }
 
   static getChannels(bus) {
     return bus.readBuffer(1).then(mask => {
-      return Converter.maskToChannels(mask);
+      return Converter.maskToChannels(mask.readUInt8());
     });
   }
 }
 
 class Converter {
-  static channelsToMask(...channels) { return 3; }
-  static maskToChannels(mask) { throw Error('not yet'); }
+  static channelsToMask(...channels) {
+    if(channels.length === 0) { return 0; }
+
+    return channels.reduce((acc, item) => {
+      if(!Number.isInteger(item)|| item < 0 || item >= 8) { throw Error('invalid channel: ' + item); }
+      return acc | (1 << item);
+    }, 0);
+  }
+
+  static maskToChannels(mask) {
+    return [0, 1, 2, 3, 4, 5, 6, 7].filter(idx => {
+      return ((mask >> idx) & 1) === 1;
+    })
+  }
 }
 
 class ChannelManager {
