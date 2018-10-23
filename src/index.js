@@ -24,14 +24,18 @@ class Tca9548 {
   init(options) {
     return Promise.resolve(new TcaBus(this._bus, options));
   }
+
+  // direct access to chanenls selection
+  getChannels() { return Common.getChannels(this._bus); }
+  setChannels(channels) { return Common.setChannels(this._bus, channels); }
 }
 
 class Common {
-  static select(bus, channels) {
+  static setChannels(bus, channels) {
     return bus.writeBuffer(Buffer.from([Converter.channelsToMask(channels)]));
   }
 
-  static selectedChannels(bus) {
+  static getChannels(bus) {
     return bus.readBuffer(1).then(mask => {
       return Converter.maskToChannels(mask);
     });
