@@ -13,7 +13,7 @@ const config = {
 
 function setup() {
   return Rasbus.bytype(config.bus.driver).init(...config.bus.id)
-    .then(bus => Tca9548.from(bus));
+    .then(bus => Tca9548.from(Rasbus.i2c, bus));
 }
 
 function parseArgv(argv) {
@@ -25,6 +25,11 @@ function parseArgv(argv) {
     return [];
   }
 
+  if(['list', 'show'].includes(first.toLowerCase())) {
+    if(argv.length !== 3) { throw Error('extra tune out parameters: ' + argv.slice(3)) }
+    return false;
+  }
+
   return argv.splice(2).map(arg => {
     const n = Number.parseInt(arg, 10);
     if(Number.isNaN(n)) { throw Error('failed to parse channel arg: ' + arg); }
@@ -34,10 +39,17 @@ function parseArgv(argv) {
   });
 }
 
+
+// -------------------
+let doset = true;
 const channels = parseArgv(process.argv);
+if(!Array.isArray(channels)) {
+  doset = false;
+}
 
 setup().then(device => {
-  return device.setChannels(channels)
+  return Promise.resolve()
+    .then(() => doset ? device.setChannels(channels) : Promise.resolve())
     .then(() => device.getChannels()
       .then(channels => {
         if(channels.length === 0) {

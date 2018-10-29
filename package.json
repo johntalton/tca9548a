@@ -9,7 +9,8 @@
   "author": "johntalton@gmail.com",
   "license": "MIT",
   "dependencies": {
-    "@johntalton/and-other-delights": "johntalton/and-other-delights"
+    "@johntalton/and-other-delights": "johntalton/and-other-delights",
+    "throat": "^4.1.0"
   },
   "devDependencies": {
     "@johntalton/rasbus": "johntalton/rasbus",
