@@ -10,11 +10,12 @@
   "license": "MIT",
   "dependencies": {
     "@johntalton/and-other-delights": "johntalton/and-other-delights",
-    "throat": "^4.1.0"
+    "throat": "^5.0.0"
   },
   "devDependencies": {
     "@johntalton/rasbus": "johntalton/rasbus",
-    "eslint": "^5.7.0"
+    "eslint": "^6.8.0",
+    "onoff": "^6.0.0"
   },
   "repository": {
     "type": "git",

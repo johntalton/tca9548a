@@ -1,4 +1,4 @@
-
+const Gpio = require('onoff').Gpio;
 
 const { Rasbus } = require('@johntalton/rasbus');
 
@@ -30,6 +30,14 @@ function parseArgv(argv) {
     return false;
   }
 
+  if(['int', 'interupt', 'reset'].includes(first.toLowerCase())) {
+    if(argv.length !== 4) { throw Error('reset requires pin parameter: ' + argv.slice(3)) }
+    doset = false;
+    doint = true;
+
+    return argv[3];
+  }
+
   return argv.splice(2).map(arg => {
     const n = Number.parseInt(arg, 10);
     if(Number.isNaN(n)) { throw Error('failed to parse channel arg: ' + arg); }
@@ -42,14 +50,24 @@ function parseArgv(argv) {
 
 // -------------------
 let doset = true;
+let doint = false;
 const channels = parseArgv(process.argv);
 if(!Array.isArray(channels)) {
   doset = false;
 }
 
+function reset(pin) {
+  const gpio = new Gpio(pin, 'out', { activeLow: true });
+  return gpio.write(Gpio.HIGH)
+    .then(gpio.write(Gpio.LOW))
+    .then(gpio.unexport());
+}
+
+
 setup().then(device => {
   return Promise.resolve()
     .then(() => doset ? device.setChannels(channels) : Promise.resolve())
+    .then(() => doint ? reset(channels) : Promise.resolve())
     .then(() => device.getChannels()
       .then(channels => {
         if(channels.length === 0) {
