@@ -28,7 +28,7 @@ Using a select / detect workflow the expected results:
 > tune 1
 > i2cdetect
   0xC 0xD 0xE
-> tune 0, 1
+> tune 0 1
 > i2cdetect
   0xA 0xB 0xC 0xD 0xE
 ```
