@@ -1,6 +1,7 @@
 const Gpio = require('onoff').Gpio;
+const i2c = require('i2c-bus');
 
-const { Rasbus } = require('@johntalton/rasbus');
+const { I2CAddressedBus } = require('@johntalton/and-other-delights');
 
 const { Tca9548 } = require('../');
 
@@ -12,8 +13,13 @@ const config = {
 };
 
 function setup() {
-  return Rasbus.bytype(config.bus.driver).init(...config.bus.id)
-    .then(bus => Tca9548.from(Rasbus.i2c, bus));
+  if(config.bus.driver !== 'i2c') { throw Error('driver not supported'); }
+
+  return i2c.openPromisified(config.bus.id[0])
+    .then(bus => {
+      const abus = new I2CAddressedBus(bus, config.bus.id[1]);
+      return Tca9548.from(bus, abus);
+    });
 }
 
 function parseArgv(argv) {
@@ -30,7 +36,7 @@ function parseArgv(argv) {
     return false;
   }
 
-  if(['int', 'interupt', 'reset'].includes(first.toLowerCase())) {
+  if(['int', 'interrupt', 'reset'].includes(first.toLowerCase())) {
     if(argv.length !== 4) { throw Error('reset requires pin parameter: ' + argv.slice(3)) }
     doset = false;
     doint = true;
@@ -40,8 +46,8 @@ function parseArgv(argv) {
 
   return argv.splice(2).map(arg => {
     const n = Number.parseInt(arg, 10);
-    if(Number.isNaN(n)) { throw Error('failed to parse channel arg: ' + arg); }
-    if(n.toString() !== arg) { throw Error('parse int success, but did not match full arg: ' + arg + ' vs ' + n); }
+    if(Number.isNaN(n)) { throw Error('failed to parse channel: ' + arg); }
+    if(n.toString() !== arg) { throw Error('parse int success, but did not match full argument: ' + arg + ' vs ' + n); }
     if(!Number.isInteger(n)) { throw Error('unable to parse channel argument: ' + arg); }
     return n;
   });
@@ -66,15 +72,17 @@ function reset(pin) {
 
 setup().then(device => {
   return Promise.resolve()
-    .then(() => doset ? device.setChannels(channels) : Promise.resolve())
-    .then(() => doint ? reset(channels) : Promise.resolve())
+    .then(() => (doset ? device.setChannels(channels) : Promise.resolve()))
+    .then(() => (doint ? reset(channels) : Promise.resolve()))
     .then(() => device.getChannels()
-      .then(channels => {
-        if(channels.length === 0) {
+      .then(resultChannels => {
+        if(resultChannels.length === 0) {
           console.log('tuned out');
-        } else {
-          console.log('tuned to', channels)
         }
+        else {
+          console.log('tuned to', resultChannels)
+        }
+        return true;
       })
       .catch(e => console.log('failure to tune', e))
     );
