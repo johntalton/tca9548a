@@ -1,0 +1,20 @@
+graph TD
+  subgraph Host Bus
+    host ---  tca(["0x70 (TCA)"])
+  end
+
+  subgraph nth[Channel N]
+    tca -.- d([0x77])
+  end
+
+  subgraph two[Channel Two]
+    tca --- c([0x77])
+  end
+  subgraph one[Channel One]
+    tca --- b([0x77])
+  end
+  subgraph zero[Channel Zero]
+    tca --- a([0x77])
+  end
+
+  style tca fill: lightblue

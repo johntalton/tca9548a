@@ -24,20 +24,20 @@ As such, zero or more channel can extend the host bus.  Allowing for the host bu
 ### Consider the following
 Assume four sensor are connected to the TCA chip via channel 0 and 1, and each sensor label by it's address.
 
-![example bus layout](examples/example.svg)
+![example bus layout](examples/multibus.svg)
 
 Using the above bus configuration, the following commands will describe and allow you to control the bus segments.
 ```
 > node tune off
 > i2cdetect
   0x10 0x70
-> tune 0
+> node tune 0
 > i2cdetect
   0x1 0x2 0x10 0x70
-> tune 1
+> node tune 1
 > i2cdetect
   0x3 0x4 0x10 0x70
-> tune 0 1
+> node tune 0 1
 > i2cdetect
   0x1 0x2 0x3 0x4 0x10 0x70
 ```
@@ -47,14 +47,9 @@ Also the fact that `0x10` and `0x70` is always present from the host perspective
 
 ### Overlapping static address multiplexing
 A simple / common use case is to use the TCA to select from sensor that would nomraly share an address (and create errors on the I²C bus) by placing each on individual channels:
-```
-  host
-   |
-  TCA 0 --- A
-      1 --- A
-      2 --- A
-        ...
-```
+
+![example bus layout](examples/multiplex.svg)
+
 In such a configuration the `tune` command would exclusivly select each channel (never selecting more then one at a time), and the `i2cdetect` call would always return 0xA onto the host bus.
 
 Some care is needed by calling application layer when managing and caching resourses as called from code addressing 0xA (in this example) will result in read/write on different sensors depending on the channel configuration.
@@ -63,4 +58,4 @@ Some care is needed by calling application layer when managing and caching resou
 ## Interoperability / Dependencies
 This project aims to provide a common / abstract I²C bus implementation such that transparent sensor logic can be writen without knowledge of the bus layer.
 
-As such the @johntalton/rasbus library is uses to provide an abstract I²C API definition and a host-native I²C bus implementation.
+Wrapper code for `i2c-bus` and `onoff` are well supported.
