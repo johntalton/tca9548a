@@ -1,5 +1,5 @@
-/* eslint-disable promise/no-nesting */
-const { Gpio } = require('onoff');
+let Gpio;
+try { Gpio = require('onoff').Gpio; } catch (e) { }
 
 let i2c;
 try { i2c = require('i2c-bus'); } catch (e) { }
@@ -33,6 +33,7 @@ function stringToNumber(item) {
 }
 
 async function resetDevice(pin) {
+  if(Gpio === undefined) { console.log(' ** Gpio not found **'); return; }
   if(!Gpio.accessible) { console.log(' ** Gpio is not accessible **'); return; }
   const gpio = new Gpio(pin, 'out', { activeLow: true });
   await gpio.write(Gpio.HIGH);
