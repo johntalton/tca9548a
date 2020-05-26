@@ -97,7 +97,7 @@ if(!module.parent) {
       }
 
       const n = stringToNumber(item);
-      console.log('found channel', n);
+      // console.log('found channel', n);
 
       if(acc.setChannels === false) { acc.setChannels = []; }
       acc.setChannels.push(n);
