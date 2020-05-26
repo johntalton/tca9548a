@@ -12,14 +12,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v1
+      uses: actions/checkout@v2.1.1
+      
     - name: Install Node.js
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v1.4.2
+      
     - name: Install Packages
       run: npm install
-    - name:
+      
+    - name: generateDiagrams
       run: npm run generateDiagrams
-    - uses: actions/upload-artifact@v1
+      
+    - uses: actions/upload-artifact@v2
       with:
         name: output
-        path: ./example
+        path: ./examples/*.svg
