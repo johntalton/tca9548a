@@ -23,7 +23,15 @@ jobs:
     - name: generateDiagrams
       run: npm run generateDiagrams
       
-    - uses: actions/upload-artifact@v2
+    - name: Commit files
+      run: |
+        echo ${{ github.ref }}
+        git add .
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git commit -m "CI: Generate Diagrams" -a | exit 0
+    - name: Push changes
+      if: github.ref == 'refs/heads/master'
+      uses: ad-m/github-push-action@master
       with:
-        name: output
-        path: ./examples/*.svg
+        github_token: ${{ secrets.GITHUB_TOKEN }}
