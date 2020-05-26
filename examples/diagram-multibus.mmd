@@ -1,0 +1,14 @@
+graph LR
+	subgraph Host Bus
+		tca("0x70 (TCA)") --- h[[host]]
+		%% h[[host]] --- tca("0x70 (TCA)")
+	end
+	subgraph zero[Channel Zero]
+		A([0x1]) --- B([0x2])
+	end
+	subgraph one[Channel One]
+		C([0x3]) --- D([0x4])
+	end
+	B -.- tca
+	C -.- tca
+	style tca fill: lightblue

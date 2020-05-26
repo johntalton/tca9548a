@@ -1,10 +1,13 @@
 {
   "name": "@johntalton/tca9548",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "lint": "./node_modules/.bin/eslint ."
+    "lint": "./node_modules/.bin/eslint .",
+    "generateDiagrams": "npm run -s generateDiagram:multibus & npm run -s generateDiagram:multiplex",
+    "generateDiagram:multibus": "./node_modules/.bin/mmdc -i examples/diagram-multibus.mmd -o examples/multibus.svg",
+    "generateDiagram:multiplex": "./node_modules/.bin/mmdc -i examples/diagram-multiplex.mmd -o examples/multiplex.svg"
   },
   "author": "johntalton@gmail.com",
   "license": "MIT",
@@ -13,6 +16,7 @@
     "throat": "^5.0.0"
   },
   "devDependencies": {
+    "@mermaid-js/mermaid-cli": "^8.5.1-2",
     "eslint": "^7.0.0",
     "eslint-plugin-fp": "^2.3.0",
     "eslint-plugin-immutable": "^1.0.0",

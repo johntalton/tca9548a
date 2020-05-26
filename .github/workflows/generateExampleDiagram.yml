@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  generateExampleDiagram:
+    name: generateDiagrams
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+    - name: Install Node.js
+      uses: actions/setup-node@v1
+    - name: Install Packages
+      run: npm install
+    - name:
+      run: npm run generateDiagrams
+    - uses: actions/upload-artifact@v1
+      with:
+        name: output
+        path: ./example
