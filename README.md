@@ -15,6 +15,48 @@ This package allows for direct and simple interaction with the channel (segment)
 ![GitHub last commit](https://img.shields.io/github/last-commit/johntalton/tca9548)
 
 
+## API
+
+The main interface and factory class is `Tca9548`.  It provides the factory method `from` which is passed a valid I2CBus.
+
+Channel number for this 8-Channel device is 0 - 7
+
+##### `getChannels`
+Queries the device and returns and array of enabled channels. If not channels are enabled then the empt array is returned.
+
+##### `setChannels`
+Sets the devices active channels.  Takes in an array of channels
+
+
+#### Example:
+
+```js
+const i2c = require('i2c-bus');
+const { Tca9548 } = require('@johntalton/tca9548');
+
+// setup device
+const i2c1 = await provider.openPromisified(1);
+const device = await Tca9548.from(new I2CAddressedBus(i2c1, 0x70));
+const channels = await device.getChannels();
+
+// deconstruct and append channel three
+await device.setChannels([...channels, 3]);
+
+```
+
+
+### Additional API
+This package also provids an abstraction layer around Channel Managment and the devices in ordre to expose a `I2CTcaBus` implementation.  This serves as a compliant `I2CBus` allowing for other Chip / Sensor implementations to abstract Bus Managment and Sensor specific code.
+
+```js
+// ...
+const i2c = // any comliant implementation like require('i2c-bus')
+const virtualI2cX = await TcsBus.from(...);
+
+const sensor = await SomeSensor.init(new I2CAddressedBus(virtualI2cX, sensorAddress));
+```
+
+
 ## Concept
 The TCA provides a managment layer that exposes channels. Each channel is an I²C bus segment that can extends the host I²C bus. The managment layer allow for forking and joining these channels.
 
