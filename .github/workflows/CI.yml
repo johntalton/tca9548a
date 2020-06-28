@@ -14,3 +14,9 @@ jobs:
     - run: npm install
     - run: 
     - run: npm run lint
+  diagrams:
+    name: Diagrams
+    runs-on: ubuntu-latest
+    steps:
+      - run: npm run generateDiagrams
+      # upload artifact / or commit?
