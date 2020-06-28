@@ -16,5 +16,8 @@ jobs:
     name: Diagrams
     runs-on: ubuntu-latest
     steps:
-      - run: npm run generateDiagrams
+    - uses: actions/checkout@v2.3.1
+    - uses: actions/setup-node@v2.0.0
+    - run: npm install
+    - run: npm run generateDiagrams
       # upload artifact / or commit?
