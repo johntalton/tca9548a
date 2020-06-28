@@ -12,7 +12,7 @@
   "author": "johntalton@gmail.com",
   "license": "MIT",
   "dependencies": {
-    "@johntalton/and-other-delights": "github:johntalton/and-other-delights",
+    "@johntalton/and-other-delights": "^2.0.0",
     "throat": "^5.0.0"
   },
   "devDependencies": {
