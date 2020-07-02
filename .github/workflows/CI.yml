@@ -20,4 +20,7 @@ jobs:
     - uses: actions/setup-node@v2.1.0
     - run: npm install
     - run: npm run generateDiagrams
-      # upload artifact / or commit?
+    - uses: actions/upload-artifact@2
+      with:
+        name: Diagrams
+        path: examples/*.svg
