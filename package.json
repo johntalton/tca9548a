@@ -40,7 +40,7 @@
     "global": []
   },
   "dependencies": {
-    "@johntalton/and-other-delights": "^2.0.0",
+    "@johntalton/and-other-delights": "^3.0.2",
     "throat": "^5.0.0"
   },
   "devDependencies": {
