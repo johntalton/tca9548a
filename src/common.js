@@ -1,12 +1,12 @@
 const { Converter } = require('./converter.js');
 
 /**
- *
+ * Device static interface
  **/
 class Common {
   static setChannels(bus, channels) {
     // console.log('set channels:', channels);
-    return bus.writeBuffer(Buffer.from([Converter.channelsToMask(...channels)]));
+    return bus.writeBuffer(Buffer.from([Converter.channelsToMask(channels)]));
   }
 
   static getChannels(bus) {

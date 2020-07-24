@@ -1,6 +1,8 @@
 /* eslint-disable max-classes-per-file */
 const throat = require('throat');
 
+const { I2CBus } = require('@johntalton/and-other-delights');
+
 /**
  *
  **/
@@ -53,22 +55,5 @@ class SimpleCM extends ChannelManager {
 }
 
 
-/**
- *
- **/
-class TcaBus /* extends I2CBus */ {
-  constructor(bus, tca, channel, options) {
-    this.bus = bus;
-    this.manager = new SimpleCM(tca, channel);
-  }
 
-  read(cmd, length) {
-    return ChannelManager.wrap(this.manager, () => this.bus.read(cmd, length));
-  }
-
-
-  write(cmd, buffer) { throw new Error('no implementation'); }
-
-  readBuffer(length) { throw new Error('no implementation') }
-  writeBuffer(buffer) { throw new Error('no implementation') }
-}
+module.exports = { I2CTca9548Bus };

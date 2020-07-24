@@ -1,8 +1,8 @@
 /**
- *
+ * Helpers to provider api-data transformation between common api and device.
  **/
 class Converter {
-  static channelsToMask(...channels) {
+  static channelsToMask(channels) {
     if(channels.length === 0) { return 0; }
 
     return channels.reduce((acc, item) => {

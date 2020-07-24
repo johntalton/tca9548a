@@ -1,13 +1,13 @@
 {
   "name": "@johntalton/tca9548",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "",
   "author": "johntalton@gmail.com",
   "license": "MIT",
-  "main": "src/tca9548.js",
+  "main": "src/index.js",
   "exports": {
-    "import": "./src/tca9548.js",
-    "require": "./src/tca9548.js"
+    "import": "./src/index.js",
+    "require": "./src/index.js"
   },
   "type": "commonjs",
   "engines": {
@@ -40,17 +40,17 @@
     "global": []
   },
   "dependencies": {
-    "@johntalton/and-other-delights": "^2.0.0",
+    "@johntalton/and-other-delights": "^3.0.2",
     "throat": "^5.0.0"
   },
   "devDependencies": {
-    "@mermaid-js/mermaid-cli": "^8.5.1-2",
+    "@mermaid-js/mermaid-cli": "^8.5.3",
     "c8": "^7.2.0",
     "chai": "^4.2.0",
-    "eslint": "^7.1.0",
+    "eslint": "^7.3.1",
     "eslint-plugin-fp": "^2.3.0",
     "eslint-plugin-immutable": "^1.0.0",
-    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-jsdoc": "^28.5.1",
     "eslint-plugin-no-loops": "^0.3.0",
     "eslint-plugin-no-use-extend-native": "^0.5.0",
