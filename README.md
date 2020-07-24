@@ -13,6 +13,7 @@ This package allows for direct and simple interaction with the channel (segment)
 ![GitHub](https://img.shields.io/github/license/johntalton/tca9548)
 [![Downloads Per Month](http://img.shields.io/npm/dm/@johntalton/tca9548.svg)](https://www.npmjs.com/package/@johntalton/tca9548)
 ![GitHub last commit](https://img.shields.io/github/last-commit/johntalton/tca9548)
+[![Package Quality](https://npm.packagequality.com/shield/%40johntalton%2Ftca9548.svg)](https://packagequality.com/#?package=@johntalton/tca9548)
 
 
 ## API
