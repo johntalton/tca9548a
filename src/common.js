@@ -1,7 +1,7 @@
 const { Converter } = require('./converter.js');
 
 /**
- * Device static interface
+ * Device static interface providing core api.
  **/
 class Common {
   static setChannels(bus, channels) {
