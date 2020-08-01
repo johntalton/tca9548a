@@ -3,7 +3,7 @@ const { expect } = require('chai');
 
 const { I2CAddressedBus, I2CMockBus } = require('@johntalton/and-other-delights');
 
-const { Tca9548 } = require('../');
+const { Tca9548a } = require('../');
 
 const MOCK_TCA_DEFINITION = {
   register: {
@@ -23,14 +23,14 @@ describe('tca9548', () => {
     it('should construct object without error', async () => {
       const ab = await mockBus(1, 0x00);
 
-      expect(() => Tca9548.from(ab, {})).to.not.throw();
+      expect(() => Tca9548a.from(ab, {})).to.not.throw();
     });
   });
 
   describe('#getChannels', () => {
     it('should get channels', async () => {
       const ab = await mockBus(1, 0x00);
-      const tca = await Tca9548.from(ab, {});
+      const tca = await Tca9548a.from(ab, {});
       const channels = await tca.getChannels();
       expect(channels).to.deep.equal([3, 5, 7]);
     });
@@ -39,13 +39,13 @@ describe('tca9548', () => {
   describe('#setChannels', () => {
     it('should set without throw', async () => {
       const ab = await mockBus(1, 0x00);
-      const tca = await Tca9548.from(ab, {});
+      const tca = await Tca9548a.from(ab, {});
       expect(() => tca.setChannels([3, 5, 7])).to.not.throw();
     });
 
     it('should accept empty array as all off', async () => {
       const ab = await mockBus(1, 0x00);
-      const tca = await Tca9548.from(ab, {});
+      const tca = await Tca9548a.from(ab, {});
       await tca.setChannels([]);
       const channels = await tca.getChannels();
       expect(channels).to.deep.equal([]);
@@ -53,19 +53,19 @@ describe('tca9548', () => {
 
     it('should panic on bad values (high)', async () => {
       const ab = await mockBus(1, 0x00);
-      const tca = await Tca9548.from(ab, {});
+      const tca = await Tca9548a.from(ab, {});
       expect(() => tca.setChannels([ 8 ])).to.throw();
     });
 
     it('should panic on bad values (low)', async () => {
       const ab = await mockBus(1, 0x00);
-      const tca = await Tca9548.from(ab, {});
+      const tca = await Tca9548a.from(ab, {});
       expect(() => tca.setChannels([ -1 ])).to.throw();
     });
 
     it('should read same value as set', async () => {
       const ab = await mockBus(1, 0x00);
-      const tca = await Tca9548.from(ab, {});
+      const tca = await Tca9548a.from(ab, {});
       const channels = [2, 3, 5];
       await tca.setChannels(channels);
       const result = await tca.getChannels();

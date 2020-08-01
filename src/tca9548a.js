@@ -9,8 +9,8 @@ const [DEFAULT_I2C_ADDRESS] = I2C_ADDRESSES;
 /**
  * Device instance object API and Factory.
  **/
-class Tca9548 {
-  static from(bus, options) { return Promise.resolve(new Tca9548(bus, options)); }
+class Tca9548a {
+  static from(bus, options) { return Promise.resolve(new Tca9548a(bus, options)); }
 
   constructor(bus, options) { this._bus = bus; }
 
@@ -19,4 +19,4 @@ class Tca9548 {
   setChannels(channels) { return Common.setChannels(this._bus, channels); }
 }
 
-module.exports = { Tca9548, DEFAULT_I2C_ADDRESS };
+module.exports = { Tca9548a, DEFAULT_I2C_ADDRESS };
