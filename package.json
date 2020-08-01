@@ -1,5 +1,5 @@
 {
-  "name": "@johntalton/tca9548",
+  "name": "@johntalton/tca9548a",
   "version": "3.0.0",
   "description": "",
   "author": "johntalton@gmail.com",
@@ -63,6 +63,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:johntalton/tca9845.git"
+    "url": "git@github.com:johntalton/tca9548a.git"
   }
 }
