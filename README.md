@@ -1,4 +1,4 @@
-# TCA9548
+# TCA9548A
 
 A simple, but effective, solution for I²C bus managment.
 
@@ -7,19 +7,19 @@ This package allows for direct and simple interaction with the channel (segment)
 
 [Adafruit](https://learn.adafruit.com/adafruit-tca9548a-1-to-8-i2c-multiplexer-breakout?view=all) as always.
 
-[![npm Version](http://img.shields.io/npm/v/@johntalton/tca9548.svg)](https://www.npmjs.com/package/@johntalton/tca9548)
-![GitHub package.json version](https://img.shields.io/github/package-json/v/johntalton/tca9548)
-![CI](https://github.com/johntalton/tca9548/workflows/CI/badge.svg?branch=master&event=push)
-![CodeQL](https://github.com/johntalton/tca9548A/workflows/CodeQL/badge.svg)
-![GitHub](https://img.shields.io/github/license/johntalton/tca9548)
-[![Downloads Per Month](http://img.shields.io/npm/dm/@johntalton/tca9548.svg)](https://www.npmjs.com/package/@johntalton/tca9548)
-![GitHub last commit](https://img.shields.io/github/last-commit/johntalton/tca9548)
-[![Package Quality](https://npm.packagequality.com/shield/%40johntalton%2Ftca9548.svg)](https://packagequality.com/#?package=@johntalton/tca9548)
+[![npm Version](http://img.shields.io/npm/v/@johntalton/tca9548a.svg)](https://www.npmjs.com/package/@johntalton/tca9548a)
+![GitHub package.json version](https://img.shields.io/github/package-json/v/johntalton/tca9548a)
+![CI](https://github.com/johntalton/tca9548a/workflows/CI/badge.svg)
+![CodeQL](https://github.com/johntalton/tca9548a/workflows/CodeQL/badge.svg)
+![GitHub](https://img.shields.io/github/license/johntalton/tca9548a)
+[![Downloads Per Month](http://img.shields.io/npm/dm/@johntalton/tca9548a.svg)](https://www.npmjs.com/package/@johntalton/tca9548a)
+![GitHub last commit](https://img.shields.io/github/last-commit/johntalton/tca9548a)
+[![Package Quality](https://npm.packagequality.com/shield/%40johntalton%2Ftca9548a.svg)](https://packagequality.com/#?package=@johntalton/tca9548a)
 
 
 ## API
 
-The main interface and factory class is `Tca9548`.  It provides the factory method `from` which is passed a valid I2CBus.
+The main interface and factory class is `Tca9548a`.  It provides the factory method `from` which is passed a valid I2CBus.
 
 Channel number for this 8-Channel device is 0 - 7
 
@@ -34,11 +34,11 @@ Sets the devices active channels.  Takes in an array of channels
 
 ```js
 const i2c = require('i2c-bus');
-const { Tca9548 } = require('@johntalton/tca9548');
+const { Tca9548a } = require('@johntalton/tca9548a');
 
 // setup device
 const i2c1 = await provider.openPromisified(1);
-const device = await Tca9548.from(new I2CAddressedBus(i2c1, 0x70));
+const device = await Tca9548a.from(new I2CAddressedBus(i2c1, 0x70));
 const channels = await device.getChannels();
 
 // deconstruct and append channel three
