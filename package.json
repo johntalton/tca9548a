@@ -40,6 +40,7 @@
   "devDependencies": {
     "@johntalton/and-other-delights": "^3.0.2",
     "@johntalton/boschieu": "^3.0.0",
+    "@mermaid-js/mermaid-cli": "^8.5.3",
     "c8": "^7.2.0",
     "chai": "^4.2.0",
     "eslint": "^7.5.0",
