@@ -1,6 +1,6 @@
 {
-  "name": "@johntalton/tca9548",
-  "version": "3.0.0",
+  "name": "@johntalton/tca9548a",
+  "version": "4.0.0",
   "description": "",
   "author": "johntalton@gmail.com",
   "license": "MIT",
@@ -10,9 +10,6 @@
     "require": "./src/index.js"
   },
   "type": "commonjs",
-  "engines": {
-    "node": ">=12.0.0"
-  },
   "files": [
     "src/**/*.js"
   ],
@@ -39,9 +36,7 @@
     "check-leaks": true,
     "global": []
   },
-  "dependencies": {
-    "throat": "^5.0.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@johntalton/and-other-delights": "^3.0.2",
     "@johntalton/boschieu": "^3.0.0",
@@ -63,6 +58,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:johntalton/tca9845.git"
+    "url": "git@github.com:johntalton/tca9548a.git"
   }
 }

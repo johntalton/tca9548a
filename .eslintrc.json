@@ -413,7 +413,7 @@
         "johntalton",
         "todo", "const", "eslint", "bitwise",
         "param",
-        "tca9548", "onoff"
+        "tca9548a", "tca9548", "onoff", "chai", "mqtt", "gpio"
       ]
     }]
   }

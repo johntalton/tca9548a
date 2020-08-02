@@ -1,8 +1,18 @@
-let Gpio;
-try { Gpio = require('onoff').Gpio; } catch (e) { }
+//
+function tryRequire(name) {
+  try {
+    // eslint-disable-next-line global-require
+    return require(name); // eslint-disable-line import/no-dynamic-require
+  }
+  catch (e) {
+    //
+    console.log('required package not loaded', name, e.toString());
+    return undefined;
+  }
+}
 
-let i2c;
-try { i2c = require('i2c-bus'); } catch (e) { }
+const Gpio = tryRequire('onoff');
+const i2c = tryRequire('i2c-bus');
 
 const { I2CAddressedBus, I2CMockBus } = require('@johntalton/and-other-delights');
 
@@ -16,14 +26,7 @@ const COMMANDS_NO_CHANNELS = ['out', 'off', 'none'];
 const COMMANDS_LIST_CHANNELS = ['list', 'show'];
 const COMMANDS_RESET = ['reset'];
 
-
-/**
-* node tune show
-* node tune out
-* node tune <channel> [, <channel>]*
-* node tune reset <pin>
-**/
-
+//
 function stringToNumber(item) {
   const n = Number.parseInt(item, 10);
   if(Number.isNaN(n) || !Number.isInteger(n) || (n.toString(10) !== item)) {
@@ -32,6 +35,7 @@ function stringToNumber(item) {
   return n;
 }
 
+//
 async function resetDevice(pin) {
   if(Gpio === undefined) { console.log(' ** Gpio not found **'); return; }
   if(!Gpio.accessible) { console.log(' ** Gpio is not accessible **'); return; }
@@ -42,6 +46,7 @@ async function resetDevice(pin) {
   await gpio.unexport();
 }
 
+//
 async function handleCommand(provider, options) {
   // console.log(options);
 
@@ -69,7 +74,7 @@ async function handleCommand(provider, options) {
 if(!module.parent) {
   if(process.argv.length < 3) {
     console.log(' ** missing arguments ** ');
-    process.exit(-1);
+    process.exit(-1); // eslint-disable-line no-process-exit
   }
 
   const options = process.argv
@@ -101,7 +106,7 @@ if(!module.parent) {
       // console.log('found channel', n);
 
       if(acc.setChannels === false) { acc.setChannels = []; }
-      acc.setChannels.push(n);
+      acc.setChannels = [ ...acc.setChannels, n ];
 
       return acc;
     }, {
@@ -127,12 +132,12 @@ if(!module.parent) {
   if(provider === undefined) {
     if(i2c === undefined) { console.log('i2c-bus unavailable'); }
     console.log(' ** provider is undefined **');
-    process.exit(-2);
+    process.exit(-2); // eslint-disable-line no-process-exit
   }
 
   if(options.reset && options.pin === undefined) {
     console.log(' ** missing gpio pin argument for reset call ** ');
-    process.exit(-3);
+    process.exit(-3); // eslint-disable-line no-process-exit
   }
 
   handleCommand(provider, options);
