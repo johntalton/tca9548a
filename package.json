@@ -40,7 +40,6 @@
   "devDependencies": {
     "@johntalton/and-other-delights": "^3.0.2",
     "@johntalton/boschieu": "^3.0.0",
-    "@mermaid-js/mermaid-cli": "^8.5.3",
     "c8": "^7.2.0",
     "chai": "^4.2.0",
     "eslint": "^7.5.0",
@@ -54,6 +53,7 @@
     "eslint-plugin-security": "^1.4.0",
     "eslint-plugin-spellcheck": "0.0.17",
     "i2c-bus": "^5.2.0",
+    "mermaid": "^8.6.4",
     "mocha": "^8.0.1",
     "onoff": "^6.0.0"
   },
