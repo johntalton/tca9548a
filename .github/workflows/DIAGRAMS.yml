@@ -1,12 +1,12 @@
-name Diagrams
+name: Diagrams
 
-on
+on:
   push:
     paths:
       - '**/*.mermaid'
       - '**/*.md'
 
-job:
+jobs:
   Diagrams:
     runs-on: ubuntu-latest
     steps:
