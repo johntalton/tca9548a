@@ -5,11 +5,18 @@ on:
     paths:
       - '**/*.mermaid'
       - '**/*.md'
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: 'Reasone for Manual Build'
+        required: false
+        default: '🧩'
 
 jobs:
   Diagrams:
     runs-on: ubuntu-latest
     steps:
+    - runs: echo "${{ github.event.inputs.reason }}"
     - uses: actions/checkout@v2.3.1
     - uses: neenjaw/compile-mermaid-markdown-action@master
       with:
