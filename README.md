@@ -16,6 +16,9 @@ This package allows for direct and simple interaction with the channel (segment)
 ![GitHub last commit](https://img.shields.io/github/last-commit/johntalton/tca9548a)
 [![Package Quality](https://npm.packagequality.com/shield/%40johntalton%2Ftca9548a.svg)](https://packagequality.com/#?package=@johntalton/tca9548a)
 
+### `I2CBus` Abstraction
+
+The [`I2CTca9548aBus`](github.com/johntalton/i2c-bus-tca9548a) implements this `I2CBus` interface, creating virual bus instances for generic sensor consumption.  This allows for dynamic deployment environments with high code reuse.  
 
 ## API
 
