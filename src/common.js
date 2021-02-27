@@ -1,19 +1,27 @@
-const { Converter } = require('./converter.js');
+import { Converter } from './converter.js'
 
 /**
  * Device static interface providing core api.
  **/
-class Common {
+export class Common {
+  /**
+   * @param bus {I2CBus}
+   * @param channels {Array<number>}
+   * @returns {Promise<void>}
+   */
   static setChannels(bus, channels) {
-    // console.log('set channels:', channels);
-    return bus.writeBuffer(Buffer.from([Converter.channelsToMask(channels)]));
+    return bus.i2cWrite(Uint8Array.from([ Converter.channelsToMask(channels) ]))
   }
 
-  static getChannels(bus) {
-    return bus.readBuffer(1).then(mask => {
-      return Converter.maskToChannels(mask.readUInt8());
-    });
+  /**
+   * @param bus {I2CBus}
+   * @returns {Promise<Array<number>>}
+   */
+  static async getChannels(bus) {
+    const abuffer = await bus.i2cRead(1)
+    const maskBuffer = new Uint8Array(abuffer)
+    const mask = maskBuffer[0]
+
+    return Converter.maskToChannels(mask)
   }
 }
-
-module.exports = { Common };

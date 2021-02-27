@@ -1,9 +1,9 @@
-const { describe, it } = require('mocha');
-const { expect } = require('chai');
+import { describe, it } from 'mocha'
+import { expect } from 'chai'
 
-const { I2CAddressedBus, I2CMockBus } = require('@johntalton/and-other-delights');
+import { I2CAddressedBus, I2CMockBus } from '@johntalton/and-other-delights'
 
-const { Tca9548a } = require('../');
+import { Tca9548a } from '@johntalton/tca9548a'
 
 const MOCK_TCA_DEFINITION = {
   register: {
