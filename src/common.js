@@ -19,8 +19,8 @@ export class Common {
    */
   static async getChannels(bus) {
     const abuffer = await bus.i2cRead(1)
-    const maskBuffer = new Uint8Array(abuffer)
-    const mask = maskBuffer[0]
+    const dv = new DataView(abuffer)
+    const mask = dv.getUint8(0)
 
     return Converter.maskToChannels(mask)
   }

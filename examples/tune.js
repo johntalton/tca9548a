@@ -1,22 +1,9 @@
-//
-function tryRequire(name) {
-  try {
-    // eslint-disable-next-line global-require
-    return require(name); // eslint-disable-line import/no-dynamic-require
-  }
-  catch (e) {
-    //
-    console.log('required package not loaded', name, e.toString());
-    return undefined;
-  }
-}
+import Gpio from 'onoff'
+import { FivdiBusProvider } from './fivdi-bus.js'
 
-const Gpio = tryRequire('onoff');
-const i2c = tryRequire('i2c-bus');
+import { I2CAddressedBus, I2CMockBus } from '@johntalton/and-other-delights'
 
-const { I2CAddressedBus, I2CMockBus } = require('@johntalton/and-other-delights');
-
-const { Tca9548, DEFAULT_I2C_ADDRESS } = require('../');
+import { Tca9548a, DEFAULT_I2C_ADDRESS } from '@johntalton/tca9548a'
 
 const BUS_NUMBER = 1;
 const BUS_ADDRESS = DEFAULT_I2C_ADDRESS;
@@ -51,7 +38,7 @@ async function handleCommand(provider, options) {
   // console.log(options);
 
   const i2c1 = await provider.openPromisified(options.busNumber);
-  const device = await Tca9548.from(new I2CAddressedBus(i2c1, options.busAddress));
+  const device = await Tca9548a.from(new I2CAddressedBus(i2c1, options.busAddress));
 
   if(options.reset) {
     //
@@ -71,7 +58,6 @@ async function handleCommand(provider, options) {
 }
 
 //
-if(!module.parent) {
   if(process.argv.length < 3) {
     console.log(' ** missing arguments ** ');
     process.exit(-1); // eslint-disable-line no-process-exit
@@ -127,7 +113,7 @@ if(!module.parent) {
     });
   }
 
-  const provider = options.mock ? I2CMockBus : i2c;
+  const provider = options.mock ? I2CMockBus : FivdiBusProvider;
 
   if(provider === undefined) {
     if(i2c === undefined) { console.log('i2c-bus unavailable'); }
@@ -141,4 +127,3 @@ if(!module.parent) {
   }
 
   handleCommand(provider, options);
-}

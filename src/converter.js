@@ -1,4 +1,3 @@
-
 const MAX_CHANNEL_NUM = 8
 
 /**

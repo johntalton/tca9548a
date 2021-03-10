@@ -1,5 +1,7 @@
-import { describe, it } from 'mocha'
-import { expect } from 'chai'
+import mocha from 'mocha'
+const { describe, it } = mocha
+import chai from 'chai'
+const { expect } = chai
 
 import { I2CAddressedBus, I2CMockBus } from '@johntalton/and-other-delights'
 
