@@ -54,7 +54,7 @@
     "eslint-plugin-spellcheck": "0.0.17",
     "i2c-bus": "^5.2.0",
     "mermaid": "^8.6.4",
-    "mocha": "^8.0.1",
+    "mocha": "^9.0.2",
     "onoff": "^6.0.0"
   },
   "repository": {
