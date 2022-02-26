@@ -94,7 +94,7 @@
     "global": []
   },
   "devDependencies": {
-    "@johntalton/and-other-delights": "github:johntalton/and-other-delights#module",
+    "@johntalton/and-other-delights": "^6.0.0",
     "@johntalton/eslint-config": "github:johntalton/eslint-config",
     "c8": "^7.2.0",
     "chai": "^4.2.0",
