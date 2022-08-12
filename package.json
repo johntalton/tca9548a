@@ -109,7 +109,7 @@
     "eslint-plugin-security": "^1.4.0",
     "eslint-plugin-spellcheck": "0.0.19",
     "i2c-bus": "^5.2.0",
-    "mermaid": "^8.6.4",
+    "mermaid": "^9.1.5",
     "mocha": "^9.2.1",
     "onoff": "^6.0.0"
   },
