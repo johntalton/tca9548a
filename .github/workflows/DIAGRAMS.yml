@@ -23,7 +23,7 @@ jobs:
       with:
         files: examples/*.md
         output: diagrams/
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v3
       with:
         name: example/*.svg
         path: diagrams/
