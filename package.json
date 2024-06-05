@@ -97,7 +97,7 @@
     "@johntalton/and-other-delights": "^6.0.0",
     "@johntalton/eslint-config": "github:johntalton/eslint-config",
     "c8": "^7.2.0",
-    "chai": "^4.2.0",
+    "chai": "^5.1.1",
     "eslint": "^8.10.0",
     "eslint-plugin-fp": "^2.3.0",
     "eslint-plugin-immutable": "^1.0.0",
