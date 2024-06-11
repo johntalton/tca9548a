@@ -96,7 +96,7 @@
   "devDependencies": {
     "@johntalton/and-other-delights": "^6.0.0",
     "@johntalton/eslint-config": "github:johntalton/eslint-config",
-    "c8": "^7.2.0",
+    "c8": "^10.0.0",
     "chai": "^4.2.0",
     "eslint": "^8.10.0",
     "eslint-plugin-fp": "^2.3.0",
