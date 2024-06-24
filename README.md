@@ -1,6 +1,6 @@
 # TCA9548A
 
-A simple, but effective, solution for I²C bus managment.
+A simple, but effective, solution for I²C bus management.
 
 This package allows for direct and simple interaction with the channel (segment) selection API.  It also provides a `I2CBus` implementation for creating an abstraction layer for compositing multi-bus multi-sensor deployments.
 
@@ -10,15 +10,14 @@ This package allows for direct and simple interaction with the channel (segment)
 [![npm Version](http://img.shields.io/npm/v/@johntalton/tca9548a.svg)](https://www.npmjs.com/package/@johntalton/tca9548a)
 ![GitHub package.json version](https://img.shields.io/github/package-json/v/johntalton/tca9548a)
 ![CI](https://github.com/johntalton/tca9548a/workflows/CI/badge.svg)
-![CodeQL](https://github.com/johntalton/tca9548a/workflows/CodeQL/badge.svg)
 ![GitHub](https://img.shields.io/github/license/johntalton/tca9548a)
 [![Downloads Per Month](http://img.shields.io/npm/dm/@johntalton/tca9548a.svg)](https://www.npmjs.com/package/@johntalton/tca9548a)
 ![GitHub last commit](https://img.shields.io/github/last-commit/johntalton/tca9548a)
-[![Package Quality](https://npm.packagequality.com/shield/%40johntalton%2Ftca9548a.svg)](https://packagequality.com/#?package=@johntalton/tca9548a)
+[![Package Quality](https://npm.packagequality.com/shield/%40johntal
 
 ### `I2CBus` Abstraction
 
-The [`I2CTca9548aBus`](github.com/johntalton/i2c-bus-tca9548a) implements this `I2CBus` interface, creating virual bus instances for generic sensor consumption.  This allows for dynamic deployment environments with high code reuse.  
+The [`I2CTca9548aBus`](github.com/johntalton/i2c-bus-tca9548a) implements this `I2CBus` interface, creating virtual bus instances for generic sensor consumption.  This allows for dynamic deployment environments with high code reuse.
 
 ## API
 
@@ -27,7 +26,7 @@ The main interface and factory class is `Tca9548a`.  It provides the factory met
 Channel number for this 8-Channel device is 0 - 7
 
 ##### `getChannels`
-Queries the device and returns and array of enabled channels. If not channels are enabled then the empt array is returned.
+Queries the device and returns and array of enabled channels. If not channels are enabled then the empty array is returned.
 
 ##### `setChannels`
 Sets the devices active channels.  Takes in an array of channels
@@ -51,7 +50,7 @@ await device.setChannels([...channels, 3]);
 
 
 ### Additional API
-This package also provids an abstraction layer around Channel Managment and the devices in ordre to expose a `I2CTcaBus` implementation.  This serves as a compliant `I2CBus` allowing for other Chip / Sensor implementations to abstract Bus Managment and Sensor specific code.
+This package also provides an abstraction layer around Channel Management and the devices in order to expose a `I2CTcaBus` implementation.  This serves as a compliant `I2CBus` allowing for other Chip / Sensor implementations to abstract Bus Management and Sensor specific code.
 
 ```js
 // ...
@@ -63,7 +62,7 @@ const sensor = await SomeSensor.init(new I2CAddressedBus(virtualI2cX, sensorAddr
 
 
 ## Concept
-The TCA provides a managment layer that exposes channels. Each channel is an I²C bus segment that can extends the host I²C bus. The managment layer allow for forking and joining these channels.
+The TCA provides a management layer that exposes channels. Each channel is an I²C bus segment that can extends the host I²C bus. The management layer allow for forking and joining these channels.
 
 As such, zero or more channel can extend the host bus.  Allowing for the host bus to address directly all connected devices to the unified channels.
 
@@ -93,16 +92,16 @@ Make note of the last multi channel `tune` call.
 Also the fact that `0x10` and `0x70` is always present from the host perspective as expected.
 
 ### Overlapping static address multiplexing
-A simple / common use case is to use the TCA to select from sensor that would nomraly share an address (and create errors on the I²C bus) by placing each on individual channels:
+A simple / common use case is to use the TCA to select from sensor that would normally share an address (and create errors on the I²C bus) by placing each on individual channels:
 
 ![example bus layout](examples/multiplex.svg)
 
-In such a configuration the `tune` command would exclusivly select each channel (never selecting more then one at a time), and the `i2cdetect` call would always return 0xA onto the host bus.
+In such a configuration the `tune` command would exclusively select each channel (never selecting more then one at a time), and the `i2cdetect` call would always return 0xA onto the host bus.
 
-Some care is needed by calling application layer when managing and caching resourses as called from code addressing 0xA (in this example) will result in read/write on different sensors depending on the channel configuration.
+Some care is needed by calling application layer when managing and caching recourses as called from code addressing 0xA (in this example) will result in read/write on different sensors depending on the channel configuration.
 
 
 ## Interoperability / Dependencies
-This project aims to provide a common / abstract I²C bus implementation such that transparent sensor logic can be writen without knowledge of the bus layer.
+This project aims to provide a common / abstract I²C bus implementation such that transparent sensor logic can be written without knowledge of the bus layer.
 
 Wrapper code for `i2c-bus` and `onoff` are well supported.

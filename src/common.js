@@ -1,5 +1,7 @@
 import { Converter } from './converter.js'
 
+const BYTE_LENGTH_ONE = 1
+
 export class Common {
 	/**
 	 * @param bus {I2CBus}
@@ -15,7 +17,7 @@ export class Common {
 	 * @returns {Promise<Array<number>>}
 	 */
 	static async getChannels(bus) {
-		const buffer = await bus.i2cRead(1)
+		const buffer = await bus.i2cRead(BYTE_LENGTH_ONE)
 		return Converter.decodeChannels(buffer)
 	}
 }
