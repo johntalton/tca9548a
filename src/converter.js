@@ -4,7 +4,7 @@ export const SINGLE_BIT_MASK = 0b1
 
 export class Converter {
 	static encodeChannels(channels) {
-		if (channels.length === 0) { return 0 }
+		if (channels.length === 0) { return Uint8Array.from([ 0 ]) }
 
 		return Uint8Array.from([channels.reduce((acc, item) => {
 			if (!Number.isInteger(item) || item < 0 || item >= MAX_CHANNEL_NUM) { throw new Error('invalid channel: ' + item) }
@@ -18,6 +18,8 @@ export class Converter {
 			new Uint8Array(buffer)
 
 		const [ mask ] = u8
+
+		if(mask === 0) { return [] }
 
 		// todo range(channelCount)
 		return [ 0, 1, 2, 3, 4, 5, 6, 7 ].filter(idx => {
